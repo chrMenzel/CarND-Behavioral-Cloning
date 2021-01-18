@@ -56,7 +56,7 @@ for line in lines:
         measurements.append(measurement + correction)
         measurements.append(measurement - correction)
 
-print('measurements build')
+print('measurements built')
 
 print('flip images starts ...')
 # flip images horizontally to get more data for training
@@ -86,14 +86,9 @@ adding NVIDIA architecture
 
 # 5 Convolutional layers
 model.add(Convolution2D(24, (5, 5), subsample=(2,2), activation='relu'))
-#model.add(MaxPooling2D())
 model.add(Convolution2D(36, (5, 5), subsample=(2,2), activation='relu'))
-#model.add(MaxPooling2D())
-#model.add(Dropout(.1))
 model.add(Convolution2D(48, (5, 5), subsample=(2,2), activation='relu'))
-#model.add(MaxPooling2D())
 model.add(Convolution2D(64, (3, 3), activation='relu'))
-#model.add(MaxPooling2D())
 model.add(Convolution2D(64, (3, 3), activation='relu'))
 
 model.add(Flatten())
