@@ -4,7 +4,6 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Dropout
 from keras.layers.convolutional import Convolution2D, Cropping2D
-from keras.layers.pooling import MaxPooling2D
 
 standard_path = '../../opt/carnd_p3/data/'
 lines = []
@@ -21,7 +20,8 @@ lines = lines[1:]
 print('There are ' + str(len(lines)) + ' lines in the csv file.')
 images, measurements = [], []
 
-correction = 0.3  # this is a parameter for the left and right images to tune the steering measurement
+# this is a parameter for left/right images to tune the steering measurement
+correction = 0.3
 
 # A safety check if pictures exist
 image = cv2.imread(standard_path + 'IMG/center_2016_12_01_13_30_48_287.jpg')
@@ -73,19 +73,19 @@ print('flip images finished')
 # Convert data to numpy arrays because that is the format Keras requires
 X_train = np.array(augmented_images)
 y_train = np.array(augmented_measurements)
-)
+
 # build the model
 model = Sequential()
 model.add(Lambda(lambda x: (x / 127.5) - 1.0, input_shape=(160, 320, 3)))
-model.add(Cropping2D(cropping=((70,25),(0,0))))
+model.add(Cropping2D(cropping=((70, 25), (0, 0))))
 """
 adding NVIDIA architecture
 """
 
 # 5 Convolutional layers
-model.add(Convolution2D(24, (5, 5), subsample=(2,2), activation='relu'))
-model.add(Convolution2D(36, (5, 5), subsample=(2,2), activation='relu'))
-model.add(Convolution2D(48, (5, 5), subsample=(2,2), activation='relu'))
+model.add(Convolution2D(24, (5, 5), subsample=(2, 2), activation='relu'))
+model.add(Convolution2D(36, (5, 5), subsample=(2, 2), activation='relu'))
+model.add(Convolution2D(48, (5, 5), subsample=(2, 2), activation='relu'))
 model.add(Convolution2D(64, (3, 3), activation='relu'))
 model.add(Convolution2D(64, (3, 3), activation='relu'))
 
