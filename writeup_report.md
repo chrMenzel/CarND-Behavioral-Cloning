@@ -39,6 +39,7 @@ My project includes the following files:
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
 * writeup_report.md or writeup_report.pdf summarizing the results
+* video.mp4 a video of two rounds of autonomous driving
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -54,23 +55,28 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+My model (model.py lines 77-101) is nearly identical to the Nvidia convolution neural network for self driving cars. I made only two changes:
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+- The data is normalized in the model using a Keras lambda layer (code line 79). 
+- After normalization, the images are cropped (code line 80).
+- Between every dense layer I inserted a dropout layer (code lines 96, 98 and 100).
+
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model contains dropout layers in order to reduce overfitting (model.py lines 96, 98 and 100). 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model contains data augmentation in order to reduce overfitting (model.py lines 32-94).
+
+The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 106). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 105).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+As training data I chose the sample data provided by Udacity. Before that I tried very often to create own data by driving the car in the simulator but I always failed to achieve a single round without troubles. 
 
 For details about how I created the training data, see the next section. 
 
@@ -78,23 +84,24 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to go simple and adding complexity as needed.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+My first step was to use a convolution neural network model similar to the LeNet network. I thought this model might be appropriate because it was known that it works well for traffic sign recognition. But traffic sign recognition is a classification problem, the problem here (training a model to predict the steering angles of a car to drive itself in the simulator) is a regression problem. So my next approach was the convolutional network from NVIDIA which is known for working well for self driving cars.
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
-To combat the overfitting, I modified the model so that ...
+To combat the overfitting, I modified the model so that I added 3 dropout layers between the 4 dense layers and a cropping layer to get rid of the non-relevant parts of the image (trees, landscape etc.)
 
-Then I ... 
+Additionally I added more training data by using the left and right camera images additionally to the center camera images and flipping the images horizontally. Then I also added a correction of the measured steering angle of 0.2.
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track, especially in curves. To improve the driving behavior in these cases, it turned out that the correction of the steering angle (0.2 in my first attempt) was not enough and should not be used if the steering measurement was exactly or very near around zero.  So I corrected the steering angle only if the measured angle was less than -0.05 or greater than 0.05 and increased the correction from 0.22 over 0.25 to 0.3.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model.py lines 77-101) consisted of a convolution neural network with the following layers and layer sizes:
+TO BE CONTINUED ...
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
