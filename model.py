@@ -72,10 +72,8 @@ print('flip images finished')
 
 # Convert data to numpy arrays because that is the format Keras requires
 X_train = np.array(augmented_images)
-print('X_train ready')
 y_train = np.array(augmented_measurements)
-print('y_train ready')
-print('converting ready')
+)
 # build the model
 model = Sequential()
 model.add(Lambda(lambda x: (x / 127.5) - 1.0, input_shape=(160, 320, 3)))
