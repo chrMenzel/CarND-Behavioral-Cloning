@@ -101,36 +101,31 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 #### 2. Final Model Architecture
 
 The final model architecture (model.py lines 77-101) consisted of a convolution neural network with the following layers and layer sizes:
-TO BE CONTINUED ...
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+| Layer (type)      		|     Output shape       					| 
+|:---------------------:|:---------------------------------------------:| 
+| lambda_1 (Lambda)         		| (None, 160, 320, 3)   							| 
+| cropping2d_1 (Cropping2D)     	| (None, 65, 320, 3) 	|
+| conv2d_1 (Conv2D) 				|	(None, 31, 158, 24)											|
+| conv2d_2 (Conv2D) 	      	| (None, 14, 77, 36)				|
+| conv2d_3 (Conv2D)     | (None, 5, 37, 48)      									|
+| conv2d_4 (Conv2D) 					|	(None, 3, 35, 64)											|
+| conv2d_5 (Conv2D) 	      	| (None, 1, 33, 64) 				|
+| flatten_1 (Flatten)			|	(None, 2112)											|
+| dense_1 (Dense)  | (None, 100)      									|
+| dropout_1 (Dropout)		| (None, 100)        									|
+| dense_2 (Dense)  | (None, 50)      									|
+| dropout_2 (Dropout)		| (None, 50)        									|
+| dense_3 (Dense)  | (None, 10)      									|
+| dropout_3 (Dropout)		| (None, 10)        									|
+| dense_1 (Dense)  | (None, 1)      									|
 
-![alt text][image1]
 
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+I had no success to capture good driving behavior, neither with mouse nor with the arrow keys. So I only used the sample data provided by Udacity.
+To augment the data set, I also flipped images and angles (see above).
 
-![alt text][image2]
+After the collection process, I had  I had 48.216 images and steering angles. I finally shuffled the data set and put 20% of the data into a validation set.
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 3 as evidenced by trying out. I used an adam optimizer so that manually training the learning rate wasn't necessary.
