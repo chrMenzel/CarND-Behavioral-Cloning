@@ -18,13 +18,9 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./examples/Original.jpg "Normal Image"
+[image2]: ./examples/Flipped.png "Flipped Image"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -55,24 +51,24 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model (model.py lines 77-101) is nearly identical to the Nvidia convolution neural network for self driving cars. I made only two changes:
+My model (model.py lines 94-120) is nearly identical to the Nvidia convolution neural network for self driving cars. I made only two changes:
 
-- The data is normalized in the model using a Keras lambda layer (code line 79). 
-- After normalization, the images are cropped (code line 80).
-- Between every dense layer I inserted a dropout layer (code lines 96, 98 and 100).
+- The data is normalized in the model using a Keras lambda layer (code line 96). 
+- After normalization, the images are cropped (code line 97).
+- Between every dense layer I inserted a dropout layer (code lines 113, 115 and 117).
 
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 96, 98 and 100). 
+The model contains dropout layers in order to reduce overfitting (model.py lines 113, 115 and 117). 
 
-The model contains data augmentation in order to reduce overfitting (model.py lines 32-94).
+The model contains data augmentation in order to reduce overfitting (model.py lines 77-91).
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 106). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 151). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 105).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 150).
 
 #### 4. Appropriate training data
 
@@ -100,7 +96,7 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 77-101) consisted of a convolution neural network with the following layers and layer sizes:
+The final model architecture (model.py lines 94-120) consisted of a convolution neural network with the following layers and layer sizes:
 
 | Layer (type)      		|     Output shape       					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -125,6 +121,12 @@ The final model architecture (model.py lines 77-101) consisted of a convolution 
 
 I had no success to capture good driving behavior, neither with mouse nor with the arrow keys. So I only used the sample data provided by Udacity.
 To augment the data set, I also flipped images and angles (see above).
+
+Here is an example of a normal image and a flipped image:
+[//]: # (Image References)
+
+[image1]: ./examples/Original.jpg "Normal Image"
+[image2]: ./examples/Flipped.png "Flipped Image"
 
 After the collection process, I had  I had 48.216 images and steering angles. I finally shuffled the data set and put 20% of the data into a validation set.
 
