@@ -124,6 +124,7 @@ To augment the data set, I also flipped images and angles (see above).
 
 Here is an example of a normal image and a flipped image:
 ![Normal][image1]
+
 ![Flipped][image2]
 
 After the collection process, I had  I had 48.216 images and steering angles. I finally shuffled the data set and put 20% of the data into a validation set.
