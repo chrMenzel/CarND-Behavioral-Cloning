@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/Original.jpg "Normal Image"
+[image1]: ./examples/Normal.jpg "Normal Image"
 [image2]: ./examples/Flipped.jpg "Flipped Image"
 
 
