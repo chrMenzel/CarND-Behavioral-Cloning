@@ -126,6 +126,8 @@ Here is an example of a normal image and a flipped image:
 ![Normal][image1]
 ![Flipped][image2]
 
-After the collection process, I had  I had 48.216 images and steering angles. I finally shuffled the data set and put 20% of the data into a validation set.
+After the collection process, I had 48.216 images and steering angles. I finally shuffled the data set and put 20% of the data into a validation set.
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 3 as evidenced by trying out. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+I know that using a generator would save much memory. But I had difficulties to implement this with left and right camera images, steering correction and flipping the images. Because I could upload all images I did not go on with trying. That does not mean I will never do this.
